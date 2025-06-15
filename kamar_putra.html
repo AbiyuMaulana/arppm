@@ -29,34 +29,22 @@
       transition: width 0.3s ease;
     }
 
-    .info-button, .back-button {
+    .info-button {
       position: fixed;
       top: 20px;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 8px;
+      right: 20px;
+      background-color: #0077cc;
       color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
       cursor: pointer;
       z-index: 100;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
-    .info-button {
-      right: 20px;
-      background-color: #0077cc;
-    }
-
-    .back-button {
-      left: 20px;
-      background-color: #4CAF50;
-    }
-
     .info-button:hover {
       background-color: #005fa3;
-    }
-
-    .back-button:hover {
-      background-color: #3e8e41;
     }
 
     .modal {
@@ -114,8 +102,7 @@
                 reveal="auto">
   </model-viewer>
 
-  <!-- Buttons -->
-  <button class="back-button" onclick="window.location.href='index.html'">← Kembali</button>
+  <!-- Info Button -->
   <button class="info-button" onclick="openModal()">ℹ️ Info</button>
 
   <!-- Modal Info -->
@@ -139,7 +126,6 @@
 
   <!-- Script -->
   <script>
-    // Info Modal Logic
     function openModal() {
       document.getElementById("infoModal").style.display = "block";
     }
@@ -155,7 +141,6 @@
       }
     }
 
-    // Loading Progress
     const viewer = document.getElementById('modelViewer');
     const progressBar = document.getElementById('progressBar');
 
