@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kamar Putri - AR Viewer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kamar Putri AR</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     body {
@@ -12,16 +12,11 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    model-viewer {
-      width: 100vw;
-      height: 100vh;
-    }
-
-    .info-button {
+    .back-button {
       position: fixed;
       top: 20px;
-      right: 20px;
-      background-color: #0077cc;
+      left: 20px;
+      background-color: #4CAF50;
       color: white;
       border: none;
       padding: 10px 16px;
@@ -29,130 +24,32 @@
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       z-index: 10;
+      text-decoration: none;
     }
 
-    .info-button:hover {
-      background-color: #005fa3;
+    .back-button:hover {
+      background-color: #3b9442;
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 20;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
-    }
-
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 600px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-      line-height: 1.6;
-    }
-
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 24px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .close:hover {
-      color: #000;
-    }
-
-    .loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
+    model-viewer {
       width: 100vw;
-      background-color: rgba(255, 255, 255, 0.9);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      z-index: 15;
-    }
-
-    .hidden {
-      display: none;
+      height: 100vh;
     }
   </style>
 </head>
 <body>
+  <!-- Tombol Kembali -->
+  <a href="index.html" class="back-button">← Kembali ke Menu Utama</a>
 
-  <div id="loader" class="loader">Memuat AR... Mohon tunggu</div>
-
+  <!-- Model AR -->
   <model-viewer src="models/kamar_putri.glb"
                 ios-src="models/kamar_putri.usdz"
-                alt="Kamar Putri"
+                alt="3D Model Kamar Putri"
                 ar
                 auto-rotate
                 camera-controls
                 camera-orbit="0deg 90deg 3m"
-                field-of-view="30deg"
-                onload="hideLoader()"
-                onprogress="handleProgress(event)">
+                field-of-view="30deg">
   </model-viewer>
-
-  <button class="info-button" onclick="openModal()">ℹ️ Info</button>
-
-  <div id="infoModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h3>🛏 Kamar Santriwati – Lengkap & Fungsional</h3>
-      <p>Gedung Wisma Putri 5 lantai menyediakan sekitar 60 kamar. Setiap kamar dilengkapi kasur tingkat dan lemari pribadi, mendukung kerapian dan kenyamanan.</p>
-      <ul>
-        <li>🚿 4 kamar mandi per lorong</li>
-        <li>🧺 Jemuran luas di lantai 5 – cepat kering, cocok untuk santriwati</li>
-        <li>🧼 3 mesin cuci tabung di area bersama</li>
-        <li>❄️ 4 kulkas bersama (lantai 1 hingga 4)</li>
-        <li>🔄 Rolling kamar per semester, menciptakan lingkungan sosial yang aktif</li>
-        <li>🌐 WiFi per lorong, rak sepatu, dan air RO tersedia</li>
-        <li>💨 Santriwati bisa membawa kipas angin pribadi</li>
-        <li>📦 Diperbolehkan membawa peralatan tambahan seperti meja belajar, kursi, dan alat penunjang lainnya</li>
-      </ul>
-    </div>
-  </div>
-
-  <script>
-    const loader = document.getElementById("loader");
-
-    function hideLoader() {
-      loader.classList.add("hidden");
-    }
-
-    function handleProgress(event) {
-      if (event.detail && event.detail.totalProgress === 1) {
-        hideLoader();
-      }
-    }
-
-    function openModal() {
-      document.getElementById("infoModal").style.display = "block";
-    }
-
-    function closeModal() {
-      document.getElementById("infoModal").style.display = "none";
-    }
-
-    window.onclick = function(event) {
-      const modal = document.getElementById("infoModal");
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    }
-  </script>
-
 </body>
 </html>

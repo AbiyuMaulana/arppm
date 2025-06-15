@@ -1,156 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ruangan UKP - AR Viewer</title>
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      background-color: #f0f0f0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Model Viewer</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    model-viewer {
-      width: 100vw;
-      height: 100vh;
-    }
+        model-viewer {
+            width: 100vw;
+            height: 100vh;
+        }
 
-    .info-button {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: #0077cc;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      z-index: 10;
-    }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            text-decoration: none;
+        }
 
-    .info-button:hover {
-      background-color: #005fa3;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 20;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
-    }
-
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 600px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-      line-height: 1.6;
-    }
-
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 24px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .close:hover {
-      color: #000;
-    }
-
-    /* Loading overlay */
-    .loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 100vw;
-      background-color: rgba(255, 255, 255, 0.9);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      z-index: 15;
-    }
-
-    .hidden {
-      display: none;
-    }
-  </style>
+        .back-button:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
+    <a href="index.html" class="back-button">← Kembali ke Menu Utama</a>
 
-  <div id="loader" class="loader">Memuat AR... Mohon tunggu</div>
-
-  <model-viewer src="models/ruangan_ukp.glb"
-                ios-src="models/ruangan_ukp.usdz"
-                alt="Ruangan UKP"
-                ar
-                auto-rotate
-                camera-controls
-                camera-orbit="0deg 90deg 3m"
-                field-of-view="30deg"
-                onload="hideLoader()"
-                onprogress="handleProgress(event)">
-  </model-viewer>
-
-  <button class="info-button" onclick="openModal()">ℹ️ Info</button>
-
-  <div id="infoModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h3>🏥 Ruangan UKP – Pelayanan Kesehatan Santri</h3>
-      <p>Ruangan UKP adalah ruang khusus pelayanan kesehatan untuk santri yang sedang tidak enak badan.</p>
-      <ul>
-        <li>🛏 Tersedia kasur untuk beristirahat saat sakit</li>
-        <li>💊 Obat-obatan tersedia dan dicatat dalam buku pengambilan</li>
-        <li>📝 Setiap pengambilan obat wajib mengisi nama, jumlah, dan jenis obat</li>
-        <li>⚖️ Timbangan berat badan dan alat ukur tinggi tersedia</li>
-        <li>🙋‍♂️ Bisa meminta bantuan anak divisi kesehatan jika diperlukan</li>
-      </ul>
-    </div>
-  </div>
-
-  <script>
-    const loader = document.getElementById("loader");
-
-    function hideLoader() {
-      loader.classList.add("hidden");
-    }
-
-    function handleProgress(event) {
-      if (event.detail && event.detail.totalProgress === 1) {
-        hideLoader();
-      }
-    }
-
-    function openModal() {
-      document.getElementById("infoModal").style.display = "block";
-    }
-
-    function closeModal() {
-      document.getElementById("infoModal").style.display = "none";
-    }
-
-    window.onclick = function(event) {
-      const modal = document.getElementById("infoModal");
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    }
-  </script>
-
+    <model-viewer src="models/ruangan_ukp.glb"
+                  ios-src="models/ruangan_ukp.usdz"
+                  alt="3D Model"
+                  ar
+                  auto-rotate
+                  camera-controls
+                  camera-orbit="0deg 90deg 3m"
+                  field-of-view="30deg">
+    </model-viewer>
 </body>
 </html>
