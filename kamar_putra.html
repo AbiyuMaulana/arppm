@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kamar Putra Jendela</title>
+  <title>Kamar Putra</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     body {
       margin: 0;
-      background-color: #f0f0f0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f0f0;
     }
 
     model-viewer {
@@ -29,18 +29,30 @@
       transition: width 0.3s ease;
     }
 
-    .info-button {
+    .back-button, .info-button {
       position: fixed;
       top: 20px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      z-index: 101;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .back-button {
+      left: 20px;
+      background-color: #4CAF50;
+    }
+
+    .info-button {
       right: 20px;
       background-color: #0077cc;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 100;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .back-button:hover {
+      background-color: #3e8e41;
     }
 
     .info-button:hover {
@@ -50,16 +62,14 @@
     .modal {
       display: none;
       position: fixed;
-      z-index: 101;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
+      z-index: 102;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
       background-color: rgba(0,0,0,0.5);
     }
 
     .modal-content {
-      background-color: white;
+      background: white;
       margin: 10% auto;
       padding: 20px;
       border-radius: 10px;
@@ -69,11 +79,11 @@
     }
 
     .close {
-      color: #aaa;
       float: right;
       font-size: 24px;
       font-weight: bold;
       cursor: pointer;
+      color: #aaa;
     }
 
     .close:hover {
@@ -92,41 +102,55 @@
 
   <!-- AR Viewer -->
   <model-viewer id="modelViewer"
-                src="models/kamar_putra_jendela.glb"
-                ios-src="models/kamar_putra_jendela.usdz"
-                alt="Kamar Putra dengan Jendela"
+                src="models/kamar_putra.glb"
+                ios-src="models/kamar_putra.usdz"
+                alt="Kamar Putra"
                 ar
                 auto-rotate
                 camera-controls
                 camera-orbit="0deg 90deg 3m"
                 field-of-view="30deg"
                 loading="eager"
-                reveal="auto">
+                reveal="interaction">
   </model-viewer>
 
-  <!-- Info Button -->
+  <!-- Buttons -->
+  <button class="back-button" onclick="window.location.href='index.html'">← Kembali</button>
   <button class="info-button" onclick="openModal()">ℹ️ Info</button>
 
-  <!-- Modal Info -->
+  <!-- Info Modal -->
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h3>🪟 Kamar Santri Putra – Dengan Jendela</h3>
-      <p>Kamar ini berada di lantai-lantai yang memiliki jendela luar, memungkinkan cahaya alami masuk dan ventilasi lebih baik.</p>
+      <h3>🛏 Kamar Santri Putra – Nyaman & Dinamis</h3>
+      <p>Kamar santri putra berada di gedung 3 lantai dengan total sekitar 32 kamar. Setiap kamar dilengkapi kasur tingkat dan memiliki jendela atau ventilasi untuk sirkulasi udara.</p>
       <strong>Fasilitas & Informasi:</strong>
       <ul>
-        <li>🛏 Kasur tingkat di setiap kamar</li>
         <li>🚿 4 kamar mandi per lorong</li>
-        <li>🧺 Jemuran di lantai 1 dan 3, serta 3 mesin cuci</li>
-        <li>❄️ Kulkas bersama di lantai 3 & lobi</li>
+        <li>🔄 Rolling kamar tiap semester</li>
+        <li>🧺 Jemuran & mesin cuci: lantai 1b & 3 barat</li>
+        <li>❄️ Kulkas bersama (lantai 3 & lobi)</li>
         <li>🌐 WiFi, rak sepatu, dan air RO</li>
-        <li>📦 Bisa membawa kipas, meja, atau lemari pribadi</li>
+        <li>💨 Boleh bawa kipas angin pribadi</li>
+        <li>📦 Diperbolehkan bawa meja/lemari sendiri</li>
       </ul>
     </div>
   </div>
 
   <!-- Script -->
   <script>
+    const viewer = document.getElementById('modelViewer');
+    const progressBar = document.getElementById('progressBar');
+
+    viewer.addEventListener('progress', (event) => {
+      const progress = Math.round(event.detail.totalProgress * 100);
+      progressBar.style.width = progress + '%';
+    });
+
+    viewer.addEventListener('load', () => {
+      progressBar.style.display = 'none';
+    });
+
     function openModal() {
       document.getElementById("infoModal").style.display = "block";
     }
@@ -141,18 +165,6 @@
         modal.style.display = "none";
       }
     }
-
-    const viewer = document.getElementById('modelViewer');
-    const progressBar = document.getElementById('progressBar');
-
-    viewer.addEventListener('progress', (event) => {
-      const progress = Math.round(event.detail.totalProgress * 100);
-      progressBar.style.width = progress + '%';
-    });
-
-    viewer.addEventListener('load', () => {
-      progressBar.style.display = 'none';
-    });
   </script>
 </body>
 </html>
