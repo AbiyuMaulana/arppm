@@ -8,18 +8,58 @@
   <style>
     body {
       margin: 0;
-      background-color: #f0f0f0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f0f0;
     }
 
     model-viewer {
       width: 100vw;
       height: 100vh;
-      position: relative; /* Supaya elemen lain bisa tampil di atas */
-      z-index: 1;
+      display: block;
     }
 
-    /* Tombol Info */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99;
+      flex-direction: column;
+    }
+
+    .loader-text {
+      font-size: 18px;
+      margin-top: 10px;
+      color: #555;
+    }
+
+    .loader-bar {
+      width: 200px;
+      height: 8px;
+      background: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .loader-progress {
+      height: 100%;
+      width: 0%;
+      background: #0077cc;
+      animation: loadingAnim 2s infinite;
+    }
+
+    @keyframes loadingAnim {
+      0% { width: 0%; }
+      50% { width: 100%; }
+      100% { width: 0%; }
+    }
+
     .info-button {
       position: fixed;
       top: 20px;
@@ -27,28 +67,25 @@
       background-color: #0077cc;
       color: white;
       border: none;
-      padding: 14px 22px;
-      font-size: 18px;
-      border-radius: 10px;
+      padding: 10px 16px;
+      border-radius: 8px;
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      z-index: 9999; /* Supaya tampil di atas model */
+      z-index: 10;
     }
 
     .info-button:hover {
       background-color: #005fa3;
     }
 
-    /* Modal Pop-up */
     .modal {
       display: none;
       position: fixed;
-      z-index: 10000;
+      z-index: 20;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
-      overflow: auto;
       background-color: rgba(0,0,0,0.5);
     }
 
@@ -63,25 +100,29 @@
     }
 
     .close {
-      color: #aaa;
       float: right;
       font-size: 24px;
       font-weight: bold;
       cursor: pointer;
+      color: #888;
     }
 
     .close:hover {
       color: #000;
     }
-
-    ul {
-      padding-left: 20px;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Model AR -->
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loader-text">Memuat model AR...</div>
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+    </div>
+  </div>
+
+  <!-- AR Viewer -->
   <model-viewer src="models/kamar_putra.glb"
                 ios-src="models/kamar_putra.usdz"
                 alt="Kamar Putra"
@@ -89,38 +130,40 @@
                 auto-rotate
                 camera-controls
                 camera-orbit="0deg 90deg 3m"
-                field-of-view="30deg">
+                field-of-view="30deg"
+                onload="hideLoading()"
+                onprogress="(event) => console.log(event)">
   </model-viewer>
 
-  <!-- Tombol Info -->
+  <!-- Info Button -->
   <button class="info-button" onclick="openModal()">ℹ️ Info</button>
 
-  <!-- Modal Deskripsi -->
+  <!-- Modal -->
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
       <h3>🛏 Kamar Santri Putra – Nyaman & Dinamis</h3>
       <p>Kamar santri putra berada di gedung 3 lantai dengan total sekitar 32 kamar. Setiap kamar dilengkapi kasur tingkat dan memiliki jendela atau ventilasi untuk sirkulasi udara.</p>
-      <strong>Fasilitas & Informasi:</strong>
       <ul>
         <li>🚿 4 kamar mandi per lorong, terletak di luar kamar</li>
-        <li>🔄 Rolling kamar setiap semester, memperluas relasi antar santri</li>
-        <li>🧺 Fasilitas laundry & jemuran:
-          <ul>
-            <li>Jemuran di lantai 1 barat dan 3 barat</li>
-            <li>3 mesin cuci (1 di lantai 1b, 2 di lantai 3)</li>
-          </ul>
-        </li>
-        <li>❄️ 2 kulkas bersama (lantai 3 dan lobi)</li>
-        <li>🌐 WiFi per lorong, rak sepatu, dan air minum RO</li>
-        <li>💨 Santri bisa membawa kipas angin pribadi</li>
-        <li>📦 Boleh membawa peralatan tambahan seperti meja, bangku, atau lemari pribadi dari rumah</li>
+        <li>🔄 Rolling kamar setiap semester</li>
+        <li>🧺 Laundry & Jemuran (lantai 1 & 3)</li>
+        <li>❄️ 2 kulkas bersama (lantai 3 & lobi)</li>
+        <li>🌐 WiFi per lorong, rak sepatu, air RO</li>
+        <li>💨 Bisa bawa kipas pribadi</li>
+        <li>📦 Boleh bawa meja, bangku, atau lemari pribadi</li>
       </ul>
     </div>
   </div>
 
-  <!-- Script Modal -->
   <script>
+    const modelViewer = document.querySelector('model-viewer');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+
+    modelViewer.addEventListener('load', () => {
+      loadingOverlay.style.display = 'none';
+    });
+
     function openModal() {
       document.getElementById("infoModal").style.display = "block";
     }
@@ -129,13 +172,13 @@
       document.getElementById("infoModal").style.display = "none";
     }
 
-    // Klik luar modal = tutup
     window.onclick = function(event) {
       const modal = document.getElementById("infoModal");
       if (event.target === modal) {
         modal.style.display = "none";
       }
-    }
+    };
   </script>
+
 </body>
 </html>

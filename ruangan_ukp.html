@@ -3,61 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kamar Putra AR + Info</title>
+  <title>Ruangan UKP - AR Viewer</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f0f0f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     model-viewer {
       width: 100vw;
       height: 100vh;
-      display: block;
-    }
-
-    .loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.9);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 99;
-      flex-direction: column;
-    }
-
-    .loader-text {
-      font-size: 18px;
-      margin-top: 10px;
-      color: #555;
-    }
-
-    .loader-bar {
-      width: 200px;
-      height: 8px;
-      background: #ddd;
-      border-radius: 5px;
-      overflow: hidden;
-      margin-top: 20px;
-    }
-
-    .loader-progress {
-      height: 100%;
-      width: 0%;
-      background: #0077cc;
-      animation: loadingAnim 2s infinite;
-    }
-
-    @keyframes loadingAnim {
-      0% { width: 0%; }
-      50% { width: 100%; }
-      100% { width: 0%; }
     }
 
     .info-button {
@@ -86,6 +43,7 @@
       top: 0;
       width: 100%;
       height: 100%;
+      overflow: auto;
       background-color: rgba(0,0,0,0.5);
     }
 
@@ -100,69 +58,83 @@
     }
 
     .close {
+      color: #aaa;
       float: right;
       font-size: 24px;
       font-weight: bold;
       cursor: pointer;
-      color: #888;
     }
 
     .close:hover {
       color: #000;
     }
+
+    /* Loading overlay */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background-color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      z-index: 15;
+    }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Loading Overlay -->
-  <div id="loadingOverlay" class="loading-overlay">
-    <div class="loader-text">Memuat model AR...</div>
-    <div class="loader-bar">
-      <div class="loader-progress"></div>
-    </div>
-  </div>
+  <div id="loader" class="loader">Memuat AR... Mohon tunggu</div>
 
-  <!-- AR Viewer -->
-  <model-viewer src="models/kamar_putra.glb"
-                ios-src="models/kamar_putra.usdz"
-                alt="Kamar Putra"
+  <model-viewer src="models/ruangan_ukp.glb"
+                ios-src="models/ruangan_ukp.usdz"
+                alt="Ruangan UKP"
                 ar
                 auto-rotate
                 camera-controls
                 camera-orbit="0deg 90deg 3m"
                 field-of-view="30deg"
-                onload="hideLoading()"
-                onprogress="(event) => console.log(event)">
+                onload="hideLoader()"
+                onprogress="handleProgress(event)">
   </model-viewer>
 
-  <!-- Info Button -->
   <button class="info-button" onclick="openModal()">ℹ️ Info</button>
 
-  <!-- Modal -->
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h3>🛏 Kamar Santri Putra – Nyaman & Dinamis</h3>
-      <p>Kamar santri putra berada di gedung 3 lantai dengan total sekitar 32 kamar. Setiap kamar dilengkapi kasur tingkat dan memiliki jendela atau ventilasi untuk sirkulasi udara.</p>
+      <h3>🏥 Ruangan UKP – Pelayanan Kesehatan Santri</h3>
+      <p>Ruangan UKP adalah ruang khusus pelayanan kesehatan untuk santri yang sedang tidak enak badan.</p>
       <ul>
-        <li>🚿 4 kamar mandi per lorong, terletak di luar kamar</li>
-        <li>🔄 Rolling kamar setiap semester</li>
-        <li>🧺 Laundry & Jemuran (lantai 1 & 3)</li>
-        <li>❄️ 2 kulkas bersama (lantai 3 & lobi)</li>
-        <li>🌐 WiFi per lorong, rak sepatu, air RO</li>
-        <li>💨 Bisa bawa kipas pribadi</li>
-        <li>📦 Boleh bawa meja, bangku, atau lemari pribadi</li>
+        <li>🛏 Tersedia kasur untuk beristirahat saat sakit</li>
+        <li>💊 Obat-obatan tersedia dan dicatat dalam buku pengambilan</li>
+        <li>📝 Setiap pengambilan obat wajib mengisi nama, jumlah, dan jenis obat</li>
+        <li>⚖️ Timbangan berat badan dan alat ukur tinggi tersedia</li>
+        <li>🙋‍♂️ Bisa meminta bantuan anak divisi kesehatan jika diperlukan</li>
       </ul>
     </div>
   </div>
 
   <script>
-    const modelViewer = document.querySelector('model-viewer');
-    const loadingOverlay = document.getElementById('loadingOverlay');
+    const loader = document.getElementById("loader");
 
-    modelViewer.addEventListener('load', () => {
-      loadingOverlay.style.display = 'none';
-    });
+    function hideLoader() {
+      loader.classList.add("hidden");
+    }
+
+    function handleProgress(event) {
+      if (event.detail && event.detail.totalProgress === 1) {
+        hideLoader();
+      }
+    }
 
     function openModal() {
       document.getElementById("infoModal").style.display = "block";
@@ -177,7 +149,7 @@
       if (event.target === modal) {
         modal.style.display = "none";
       }
-    };
+    }
   </script>
 
 </body>

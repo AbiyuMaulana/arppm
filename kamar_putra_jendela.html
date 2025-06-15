@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kamar Putra Jendela AR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kamar Putra (Jendela) - AR Viewer</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     body {
@@ -15,11 +15,8 @@
     model-viewer {
       width: 100vw;
       height: 100vh;
-      position: relative;
-      z-index: 1;
     }
 
-    /* Info Button (Besar) */
     .info-button {
       position: fixed;
       top: 20px;
@@ -27,23 +24,21 @@
       background-color: #0077cc;
       color: white;
       border: none;
-      padding: 14px 22px;
-      font-size: 18px;
-      border-radius: 10px;
+      padding: 10px 16px;
+      border-radius: 8px;
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      z-index: 9999;
+      z-index: 10;
     }
 
     .info-button:hover {
       background-color: #005fa3;
     }
 
-    /* Modal */
     .modal {
       display: none;
       position: fixed;
-      z-index: 10000;
+      z-index: 20;
       left: 0;
       top: 0;
       width: 100%;
@@ -74,52 +69,89 @@
       color: #000;
     }
 
-    ul {
-      padding-left: 20px;
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background-color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      z-index: 15;
     }
 
-    @media (max-width: 480px) {
-      .info-button {
-        padding: 16px 24px;
-        font-size: 20px;
-      }
+    .hidden {
+      display: none;
+    }
+
+    ul {
+      padding-left: 20px;
     }
   </style>
 </head>
 <body>
 
-  <!-- AR Model -->
+  <!-- Layar loading -->
+  <div id="loader" class="loader">Memuat AR... Mohon tunggu</div>
+
+  <!-- Model Viewer -->
   <model-viewer src="models/kamar_putra_jendela.glb"
                 ios-src="models/kamar_putra_jendela.usdz"
-                alt="Kamar Putra Jendela"
+                alt="Kamar Putra dengan Jendela"
                 ar
                 auto-rotate
                 camera-controls
                 camera-orbit="0deg 90deg 3m"
-                field-of-view="30deg">
+                field-of-view="30deg"
+                onload="hideLoader()"
+                onprogress="handleProgress(event)">
   </model-viewer>
 
-  <!-- Tombol Info -->
+  <!-- Tombol info -->
   <button class="info-button" onclick="openModal()">ℹ️ Info</button>
 
-  <!-- Modal -->
+  <!-- Modal deskripsi -->
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h3>🪟 Kamar Putra Berjendela</h3>
-      <p>Kamar ini dilengkapi jendela langsung ke luar ruangan, membuat pencahayaan dan sirkulasi udara lebih optimal. Umumnya ditempati oleh santri di lorong utama dan memiliki suasana lebih terang dan segar.</p>
-      <strong>Catatan:</strong>
+      <h3>🛏 Kamar Santri Putra (Dengan Jendela)</h3>
+      <p>Kamar ini termasuk dalam kamar yang memiliki jendela terbuka sehingga mendapat pencahayaan alami dan sirkulasi udara lebih baik. Terletak di gedung 3 lantai dengan total sekitar 32 kamar.</p>
+      <strong>Fasilitas & Informasi:</strong>
       <ul>
-        <li>Lokasi strategis dekat tangga/lobby</li>
-        <li>Masih termasuk dalam sistem rolling per semester</li>
-        <li>Santri boleh membawa kipas & furnitur pribadi</li>
-        <li>Tetap menggunakan kasur tingkat dan lemari bersama</li>
+        <li>🚿 4 kamar mandi per lorong, terletak di luar kamar</li>
+        <li>🔄 Rolling kamar setiap semester, memperluas relasi antar santri</li>
+        <li>🧺 Fasilitas laundry & jemuran:
+          <ul>
+            <li>Jemuran di lantai 1 barat dan 3 barat</li>
+            <li>3 mesin cuci (1 di lantai 1b, 2 di lantai 3)</li>
+          </ul>
+        </li>
+        <li>❄️ 2 kulkas bersama (lantai 3 dan lobi)</li>
+        <li>🌐 WiFi per lorong, rak sepatu, dan air minum RO</li>
+        <li>💨 Santri bisa membawa kipas angin pribadi</li>
+        <li>📦 Boleh membawa peralatan tambahan seperti meja, bangku, atau lemari pribadi dari rumah</li>
       </ul>
     </div>
   </div>
 
-  <!-- Script -->
+  <!-- Script interaksi -->
   <script>
+    const loader = document.getElementById("loader");
+
+    function hideLoader() {
+      loader.classList.add("hidden");
+    }
+
+    function handleProgress(event) {
+      if (event.detail && event.detail.totalProgress === 1) {
+        hideLoader();
+      }
+    }
+
     function openModal() {
       document.getElementById("infoModal").style.display = "block";
     }

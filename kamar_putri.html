@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kamar Putri AR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kamar Putri - AR Viewer</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     body {
@@ -15,8 +15,6 @@
     model-viewer {
       width: 100vw;
       height: 100vh;
-      position: relative;
-      z-index: 1;
     }
 
     .info-button {
@@ -26,12 +24,11 @@
       background-color: #0077cc;
       color: white;
       border: none;
-      padding: 14px 22px;
-      font-size: 18px;
-      border-radius: 10px;
+      padding: 10px 16px;
+      border-radius: 8px;
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      z-index: 9999;
+      z-index: 10;
     }
 
     .info-button:hover {
@@ -41,7 +38,7 @@
     .modal {
       display: none;
       position: fixed;
-      z-index: 10000;
+      z-index: 20;
       left: 0;
       top: 0;
       width: 100%;
@@ -72,21 +69,30 @@
       color: #000;
     }
 
-    ul {
-      padding-left: 20px;
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background-color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      z-index: 15;
     }
 
-    @media (max-width: 480px) {
-      .info-button {
-        padding: 16px 24px;
-        font-size: 20px;
-      }
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- AR Model -->
+  <div id="loader" class="loader">Memuat AR... Mohon tunggu</div>
+
   <model-viewer src="models/kamar_putri.glb"
                 ios-src="models/kamar_putri.usdz"
                 alt="Kamar Putri"
@@ -94,34 +100,44 @@
                 auto-rotate
                 camera-controls
                 camera-orbit="0deg 90deg 3m"
-                field-of-view="30deg">
+                field-of-view="30deg"
+                onload="hideLoader()"
+                onprogress="handleProgress(event)">
   </model-viewer>
 
-  <!-- Tombol Info -->
   <button class="info-button" onclick="openModal()">ℹ️ Info</button>
 
-  <!-- Modal -->
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
       <h3>🛏 Kamar Santriwati – Lengkap & Fungsional</h3>
-      <p>Gedung Wisma Putri terdiri dari 5 lantai dan menyediakan sekitar 60 kamar. Setiap kamar dilengkapi dengan kasur tingkat dan lemari pribadi yang mendukung kenyamanan serta kerapian ruang tinggal santriwati.</p>
-      <strong>Fasilitas & Informasi:</strong>
+      <p>Gedung Wisma Putri 5 lantai menyediakan sekitar 60 kamar. Setiap kamar dilengkapi kasur tingkat dan lemari pribadi, mendukung kerapian dan kenyamanan.</p>
       <ul>
         <li>🚿 4 kamar mandi per lorong</li>
-        <li>🧺 Jemuran luas di lantai 5 – cocok untuk pengeringan cepat</li>
+        <li>🧺 Jemuran luas di lantai 5 – cepat kering, cocok untuk santriwati</li>
         <li>🧼 3 mesin cuci tabung di area bersama</li>
-        <li>❄️ 4 kulkas bersama tersedia di setiap lantai (1–4)</li>
-        <li>🔄 Rolling kamar dilakukan setiap semester</li>
-        <li>🌐 WiFi, rak sepatu, dan air RO tersedia per lorong</li>
-        <li>💨 Diperbolehkan membawa kipas pribadi</li>
-        <li>📦 Santriwati boleh membawa meja belajar, kursi, dan alat tambahan dari rumah</li>
+        <li>❄️ 4 kulkas bersama (lantai 1 hingga 4)</li>
+        <li>🔄 Rolling kamar per semester, menciptakan lingkungan sosial yang aktif</li>
+        <li>🌐 WiFi per lorong, rak sepatu, dan air RO tersedia</li>
+        <li>💨 Santriwati bisa membawa kipas angin pribadi</li>
+        <li>📦 Diperbolehkan membawa peralatan tambahan seperti meja belajar, kursi, dan alat penunjang lainnya</li>
       </ul>
     </div>
   </div>
 
-  <!-- Script Modal -->
   <script>
+    const loader = document.getElementById("loader");
+
+    function hideLoader() {
+      loader.classList.add("hidden");
+    }
+
+    function handleProgress(event) {
+      if (event.detail && event.detail.totalProgress === 1) {
+        hideLoader();
+      }
+    }
+
     function openModal() {
       document.getElementById("infoModal").style.display = "block";
     }
@@ -137,5 +153,6 @@
       }
     }
   </script>
+
 </body>
 </html>

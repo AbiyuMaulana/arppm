@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Masjid Fatimah AR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Masjid Fatimah – AR Viewer</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     body {
@@ -15,8 +15,6 @@
     model-viewer {
       width: 100vw;
       height: 100vh;
-      position: relative;
-      z-index: 1;
     }
 
     .info-button {
@@ -26,12 +24,11 @@
       background-color: #0077cc;
       color: white;
       border: none;
-      padding: 14px 22px;
-      font-size: 18px;
-      border-radius: 10px;
+      padding: 10px 16px;
+      border-radius: 8px;
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      z-index: 9999;
+      z-index: 10;
     }
 
     .info-button:hover {
@@ -41,7 +38,7 @@
     .modal {
       display: none;
       position: fixed;
-      z-index: 10000;
+      z-index: 20;
       left: 0;
       top: 0;
       width: 100%;
@@ -72,48 +69,82 @@
       color: #000;
     }
 
-    @media (max-width: 480px) {
-      .info-button {
-        padding: 16px 24px;
-        font-size: 20px;
-      }
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      background-color: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      z-index: 15;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    ul {
+      padding-left: 20px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Model AR -->
+  <!-- Layar loading -->
+  <div id="loader" class="loader">Memuat AR Masjid... Mohon tunggu</div>
+
+  <!-- Model Viewer -->
   <model-viewer src="models/masjid_mf_1.glb"
                 ios-src="models/masjid_mf_1.usdz"
-                alt="Masjid Fatimah Lantai 1"
+                alt="Masjid Fatimah"
                 ar
                 auto-rotate
                 camera-controls
                 camera-orbit="0deg 90deg 3m"
-                field-of-view="30deg">
+                field-of-view="30deg"
+                onload="hideLoader()"
+                onprogress="handleProgress(event)">
   </model-viewer>
 
-  <!-- Tombol Info -->
+  <!-- Tombol info -->
   <button class="info-button" onclick="openModal()">ℹ️ Info</button>
 
-  <!-- Modal -->
+  <!-- Modal Deskripsi -->
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h3>🕌 Masjid Fatimah Lantai 1</h3>
-      <p>Masjid Fatimah Lantai 1 merupakan pusat kegiatan keagamaan dan keasramaan di PPM Al-Faqih Mandiri. Selain menjadi tempat sholat lima waktu dan kajian rutin, masjid ini juga digunakan untuk berbagai kegiatan seperti:</p>
+      <h3>🕌 Masjid Fatimah – Pusat Kegiatan Spiritual</h3>
+      <p>Masjid Fatimah atau MF1 merupakan pusat ibadah dan kegiatan ruhiyah santri PPM Al-Faqih Mandiri. Di sinilah dilaksanakan salat berjamaah, pengajian, hingga berbagai acara formal seperti seminar dan kajian rutin.</p>
+      <strong>Fasilitas Utama:</strong>
       <ul>
-        <li>📖 Pengajian dan halaqah pekanan</li>
-        <li>🎤 Musyawarah divisi dan kegiatan organisasi</li>
-        <li>📢 Pembukaan acara besar seperti seminar atau penyambutan santri baru</li>
-        <li>💬 Tempat diskusi dan pembinaan karakter</li>
+        <li>🕌 Tempat salat luas untuk santri putra dan putri (jam terpisah)</li>
+        <li>🎤 Sound system dan proyektor untuk kegiatan pembinaan dan kajian</li>
+        <li>📚 Rak kitab & Al-Qur'an</li>
+        <li>🧹 Jadwal piket kebersihan oleh santri secara bergilir</li>
+        <li>🌙 Digunakan untuk kegiatan rutin seperti Qiyamul Lail, buka puasa, dan lainnya</li>
       </ul>
-      <p>Masjid ini terhubung langsung dengan lorong-lorong kamar dan ruang kegiatan lainnya, menjadikannya lokasi sentral yang mudah diakses semua santri.</p>
     </div>
   </div>
 
-  <!-- Script -->
+  <!-- Script Interaktif -->
   <script>
+    const loader = document.getElementById("loader");
+
+    function hideLoader() {
+      loader.classList.add("hidden");
+    }
+
+    function handleProgress(event) {
+      if (event.detail && event.detail.totalProgress === 1) {
+        hideLoader();
+      }
+    }
+
     function openModal() {
       document.getElementById("infoModal").style.display = "block";
     }
