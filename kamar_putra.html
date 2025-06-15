@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kamar Putra</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
@@ -96,6 +96,7 @@
   </style>
 </head>
 <body>
+
   <!-- Loading Bar -->
   <div class="progress-bar" id="progressBar"></div>
 
@@ -121,24 +122,23 @@
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h3>🛏 Kamar Santri Putra – Nyaman & Dinamis</h3>
-      <p>Kamar santri putra berada di gedung 3 lantai dengan total sekitar 32 kamar. Setiap kamar dilengkapi kasur tingkat dan memiliki jendela atau ventilasi untuk sirkulasi udara.</p>
+      <h3>🛏 Kamar Santri Putra – Tanpa Jendela</h3>
+      <p>Beberapa kamar santri putra memiliki ventilasi alih-alih jendela. Tetap dirancang agar nyaman dan aman dihuni.</p>
       <strong>Fasilitas & Informasi:</strong>
       <ul>
-        <li>🚿 4 kamar mandi per lorong</li>
-        <li>🔄 Rolling kamar tiap semester</li>
-        <li>🧺 Jemuran & mesin cuci: lantai 1b & 3 barat</li>
-        <li>❄️ Kulkas bersama (lantai 3 & lobi)</li>
-        <li>🌐 WiFi, rak sepatu, dan air RO</li>
-        <li>💨 Boleh bawa kipas angin pribadi</li>
-        <li>📦 Diperbolehkan bawa meja/lemari sendiri</li>
+        <li>🛏 Kasur tingkat di setiap kamar</li>
+        <li>🚿 4 kamar mandi per lorong (di luar kamar)</li>
+        <li>🔁 Rolling kamar tiap semester</li>
+        <li>🧺 Jemuran di lantai 1 dan 3, serta 3 mesin cuci</li>
+        <li>❄️ Kulkas bersama di lantai 3 dan lobi</li>
+        <li>🌐 WiFi per lorong, rak sepatu, air RO</li>
+        <li>📦 Bisa bawa kipas, meja, atau lemari pribadi</li>
       </ul>
     </div>
   </div>
 
   <!-- Script -->
   <script>
-    // Info Modal Logic
     function openModal() {
       document.getElementById("infoModal").style.display = "block";
     }
@@ -154,7 +154,6 @@
       }
     }
 
-    // Loading Progress
     const viewer = document.getElementById('modelViewer');
     const progressBar = document.getElementById('progressBar');
 
