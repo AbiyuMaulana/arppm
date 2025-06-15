@@ -2,21 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ruangan UKP AR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kamar Putra AR + Info</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     body {
       margin: 0;
-      background-color: #f0f0f0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f0f0;
     }
 
     model-viewer {
       width: 100vw;
       height: 100vh;
-      position: relative;
-      z-index: 1;
+      display: block;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99;
+      flex-direction: column;
+    }
+
+    .loader-text {
+      font-size: 18px;
+      margin-top: 10px;
+      color: #555;
+    }
+
+    .loader-bar {
+      width: 200px;
+      height: 8px;
+      background: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .loader-progress {
+      height: 100%;
+      width: 0%;
+      background: #0077cc;
+      animation: loadingAnim 2s infinite;
+    }
+
+    @keyframes loadingAnim {
+      0% { width: 0%; }
+      50% { width: 100%; }
+      100% { width: 0%; }
     }
 
     .info-button {
@@ -26,12 +67,11 @@
       background-color: #0077cc;
       color: white;
       border: none;
-      padding: 14px 22px;
-      font-size: 18px;
-      border-radius: 10px;
+      padding: 10px 16px;
+      border-radius: 8px;
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      z-index: 9999;
+      z-index: 10;
     }
 
     .info-button:hover {
@@ -41,12 +81,11 @@
     .modal {
       display: none;
       position: fixed;
-      z-index: 10000;
+      z-index: 20;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
-      overflow: auto;
       background-color: rgba(0,0,0,0.5);
     }
 
@@ -61,61 +100,70 @@
     }
 
     .close {
-      color: #aaa;
       float: right;
       font-size: 24px;
       font-weight: bold;
       cursor: pointer;
+      color: #888;
     }
 
     .close:hover {
       color: #000;
     }
-
-    @media (max-width: 480px) {
-      .info-button {
-        padding: 16px 24px;
-        font-size: 20px;
-      }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Model AR -->
-  <model-viewer src="models/ruangan_ukp.glb"
-                ios-src="models/ruangan_ukp.usdz"
-                alt="Ruangan UKP"
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loader-text">Memuat model AR...</div>
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+    </div>
+  </div>
+
+  <!-- AR Viewer -->
+  <model-viewer src="models/kamar_putra.glb"
+                ios-src="models/kamar_putra.usdz"
+                alt="Kamar Putra"
                 ar
                 auto-rotate
                 camera-controls
                 camera-orbit="0deg 90deg 3m"
-                field-of-view="30deg">
+                field-of-view="30deg"
+                onload="hideLoading()"
+                onprogress="(event) => console.log(event)">
   </model-viewer>
 
-  <!-- Tombol Info -->
+  <!-- Info Button -->
   <button class="info-button" onclick="openModal()">ℹ️ Info</button>
 
   <!-- Modal -->
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h3>🏥 Ruangan UKP (Unit Kesehatan Pesantren)</h3>
-      <p>Ruangan UKP berfungsi sebagai tempat pertolongan pertama dan layanan kesehatan untuk mahasiswa PPM Al-Faqih Mandiri. Mahasiswa yang sedang tidak sehat dapat memanfaatkan ruangan ini untuk beristirahat atau mendapatkan pengobatan ringan.</p>
-      <strong>Fasilitas & Prosedur:</strong>
+      <h3>🛏 Kamar Santri Putra – Nyaman & Dinamis</h3>
+      <p>Kamar santri putra berada di gedung 3 lantai dengan total sekitar 32 kamar. Setiap kamar dilengkapi kasur tingkat dan memiliki jendela atau ventilasi untuk sirkulasi udara.</p>
       <ul>
-        <li>🛏 Tempat tidur untuk berbaring bila sakit</li>
-        <li>💊 Obat-obatan umum tersedia sesuai kebutuhan</li>
-        <li>📚 Buku catatan pengambilan obat harus diisi (nama, jenis, jumlah obat)</li>
-        <li>⚖️ Timbangan berat badan & pengukur tinggi badan tersedia</li>
-        <li>🤝 Jika perlu bantuan, bisa menghubungi anggota Divisi Kesehatan (Divkes)</li>
+        <li>🚿 4 kamar mandi per lorong, terletak di luar kamar</li>
+        <li>🔄 Rolling kamar setiap semester</li>
+        <li>🧺 Laundry & Jemuran (lantai 1 & 3)</li>
+        <li>❄️ 2 kulkas bersama (lantai 3 & lobi)</li>
+        <li>🌐 WiFi per lorong, rak sepatu, air RO</li>
+        <li>💨 Bisa bawa kipas pribadi</li>
+        <li>📦 Boleh bawa meja, bangku, atau lemari pribadi</li>
       </ul>
-      <p>Intinya, ruangan UKP siap membantu mengurangi keluhan kesehatan santri dan menjadi tempat pemulihan sementara yang terpantau.</p>
     </div>
   </div>
 
-  <!-- Script -->
   <script>
+    const modelViewer = document.querySelector('model-viewer');
+    const loadingOverlay = document.getElementById('loadingOverlay');
+
+    modelViewer.addEventListener('load', () => {
+      loadingOverlay.style.display = 'none';
+    });
+
     function openModal() {
       document.getElementById("infoModal").style.display = "block";
     }
@@ -129,7 +177,7 @@
       if (event.target === modal) {
         modal.style.display = "none";
       }
-    }
+    };
   </script>
 
 </body>
