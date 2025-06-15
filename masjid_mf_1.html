@@ -1,34 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Model Viewer</title>
-    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        model-viewer {
-            width: 80vw;
-            height: 80vh;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Masjid Fatimah AR</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    model-viewer {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    .info-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 14px 22px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 9999;
+    }
+
+    .info-button:hover {
+      background-color: #005fa3;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      line-height: 1.6;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    @media (max-width: 480px) {
+      .info-button {
+        padding: 16px 24px;
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <model-viewer src="models/masjid_mf_1.glb"
-                  ios-src="models/masjid_mf_1.usdz"
-                  alt="3D Model"
-                  ar
-                  auto-rotate
-                  camera-controls
-                  camera-orbit="0deg 90deg 3m"
-                  field-of-view="30deg">
-    </model-viewer>
+
+  <!-- Model AR -->
+  <model-viewer src="models/masjid_mf_1.glb"
+                ios-src="models/masjid_mf_1.usdz"
+                alt="Masjid Fatimah Lantai 1"
+                ar
+                auto-rotate
+                camera-controls
+                camera-orbit="0deg 90deg 3m"
+                field-of-view="30deg">
+  </model-viewer>
+
+  <!-- Tombol Info -->
+  <button class="info-button" onclick="openModal()">ℹ️ Info</button>
+
+  <!-- Modal -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3>🕌 Masjid Fatimah Lantai 1</h3>
+      <p>Masjid Fatimah Lantai 1 merupakan pusat kegiatan keagamaan dan keasramaan di PPM Al-Faqih Mandiri. Selain menjadi tempat sholat lima waktu dan kajian rutin, masjid ini juga digunakan untuk berbagai kegiatan seperti:</p>
+      <ul>
+        <li>📖 Pengajian dan halaqah pekanan</li>
+        <li>🎤 Musyawarah divisi dan kegiatan organisasi</li>
+        <li>📢 Pembukaan acara besar seperti seminar atau penyambutan santri baru</li>
+        <li>💬 Tempat diskusi dan pembinaan karakter</li>
+      </ul>
+      <p>Masjid ini terhubung langsung dengan lorong-lorong kamar dan ruang kegiatan lainnya, menjadikannya lokasi sentral yang mudah diakses semua santri.</p>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    function openModal() {
+      document.getElementById("infoModal").style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById("infoModal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById("infoModal");
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
 </body>
 </html>
