@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,32 +29,42 @@
       transition: width 0.3s ease;
     }
 
-    .info-button {
+    .info-button, .back-button {
       position: fixed;
       top: 20px;
-      right: 20px;
-      background-color: #0077cc;
-      color: white;
-      border: none;
       padding: 10px 16px;
+      border: none;
       border-radius: 8px;
+      color: white;
       cursor: pointer;
       z-index: 100;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .info-button {
+      right: 20px;
+      background-color: #0077cc;
+    }
+
+    .back-button {
+      left: 20px;
+      background-color: #4CAF50;
     }
 
     .info-button:hover {
       background-color: #005fa3;
     }
 
+    .back-button:hover {
+      background-color: #3e8e41;
+    }
+
     .modal {
       display: none;
       position: fixed;
       z-index: 101;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
       background-color: rgba(0,0,0,0.5);
     }
 
@@ -101,26 +111,26 @@
                 camera-orbit="0deg 90deg 3m"
                 field-of-view="30deg"
                 loading="eager"
-                reveal="auto">
+                reveal="interaction">
   </model-viewer>
 
-  <!-- Info Button -->
+  <!-- Buttons -->
+  <button class="back-button" onclick="window.location.href='index.html'">← Kembali</button>
   <button class="info-button" onclick="openModal()">ℹ️ Info</button>
 
   <!-- Modal Info -->
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h3>🏥 Ruangan UKP – Unit Kesehatan Pondok</h3>
-      <p>Ruangan UKP disediakan untuk membantu mahasiswa yang mengalami gangguan kesehatan ringan.</p>
+      <h3>🏥 Ruangan UKP – Unit Kesehatan Pesantren</h3>
+      <p>Ruangan UKP menyediakan berbagai kebutuhan kesehatan untuk santri.</p>
       <strong>Fasilitas & Informasi:</strong>
       <ul>
-        <li>💊 Obat-obatan dasar tersedia untuk pertolongan pertama</li>
-        <li>🛏 Tempat tidur untuk beristirahat bagi santri yang sakit</li>
-        <li>⚖️ Timbangan berat badan dan alat ukur tinggi badan</li>
-        <li>📘 Buku catatan pengambilan obat (nama, obat, dan jumlah harus dicatat)</li>
-        <li>🙋‍♀️ Konsultasi dan bantuan bisa dilakukan melalui Divisi Kesehatan (Divkes)</li>
-        <li>🚪 Siap digunakan kapan pun untuk kebutuhan darurat kesehatan</li>
+        <li>🩺 Tempat perobatan ringan dan beristirahat</li>
+        <li>💊 Tersedia obat-obatan dasar</li>
+        <li>📒 Buku catatan pengambilan obat</li>
+        <li>🔢 Timbangan berat & alat ukur tinggi badan</li>
+        <li>🙋‍♂️ Dapat menghubungi anak divkes jika butuh bantuan</li>
       </ul>
     </div>
   </div>
