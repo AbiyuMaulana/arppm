@@ -29,42 +29,32 @@
       transition: width 0.3s ease;
     }
 
-    .info-button, .back-button {
+    .info-button {
       position: fixed;
       top: 20px;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 8px;
+      right: 20px;
+      background-color: #0077cc;
       color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
       cursor: pointer;
       z-index: 100;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    .info-button {
-      right: 20px;
-      background-color: #0077cc;
-    }
-
-    .back-button {
-      left: 20px;
-      background-color: #4CAF50;
     }
 
     .info-button:hover {
       background-color: #005fa3;
     }
 
-    .back-button:hover {
-      background-color: #3e8e41;
-    }
-
     .modal {
       display: none;
       position: fixed;
       z-index: 101;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
       background-color: rgba(0,0,0,0.5);
     }
 
@@ -111,29 +101,26 @@
                 camera-orbit="0deg 90deg 3m"
                 field-of-view="30deg"
                 loading="eager"
-                reveal="interaction">
+                reveal="auto">
   </model-viewer>
 
-  <!-- Buttons -->
-  <button class="back-button" onclick="window.location.href='index.html'">← Kembali</button>
+  <!-- Info Button -->
   <button class="info-button" onclick="openModal()">ℹ️ Info</button>
 
   <!-- Modal Info -->
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h3>👩‍🦰 Kamar Santri Putri – Tertib & Terjaga</h3>
-      <p>Kamar santri putri berada di gedung 5 lantai dengan jumlah kamar sekitar 60 unit. Fasilitas dibuat mendukung kenyamanan dan privasi penghuni.</p>
+      <h3>🛏 Kamar Santri Putri – Nyaman & Rapi</h3>
+      <p>Kamar santri putri berada di gedung 5 lantai, dirancang nyaman dan mendukung aktivitas harian. Setiap kamar dilengkapi kasur tingkat dan lemari pribadi.</p>
       <strong>Fasilitas & Informasi:</strong>
       <ul>
-        <li>🛏 Kasur tingkat di tiap kamar</li>
-        <li>🚪 Lemari pribadi disediakan di dalam kamar</li>
-        <li>🚿 Kamar mandi di luar kamar, 4 unit tiap lorong</li>
-        <li>🔄 Rolling kamar tiap semester</li>
-        <li>🧺 Jemuran di lantai 5, area kegiatan & laundry</li>
-        <li>🌀 Tersedia mesin cuci tabung di beberapa lantai</li>
-        <li>📦 Santri boleh membawa perabot tambahan (meja, bangku, dll)</li>
-        <li>💨 Tidak menggunakan AC, bisa bawa kipas pribadi</li>
+        <li>🚿 Kamar mandi di luar lorong, 4 per lorong</li>
+        <li>🔁 Rolling kamar per semester, membangun relasi baru</li>
+        <li>🧺 Fasilitas laundry & jemuran di lantai 5</li>
+        <li>🧺 3 mesin cuci tersedia</li>
+        <li>📦 Santri boleh membawa peralatan pribadi seperti meja, kursi, dan kipas angin</li>
+        <li>🪟 Setiap kamar memiliki ventilasi atau jendela</li>
       </ul>
     </div>
   </div>

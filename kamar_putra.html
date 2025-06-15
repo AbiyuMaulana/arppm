@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kamar Putra</title>
+  <title>Kamar Putra Jendela</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     body {
@@ -51,8 +51,10 @@
       display: none;
       position: fixed;
       z-index: 101;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
       background-color: rgba(0,0,0,0.5);
     }
 
@@ -90,9 +92,9 @@
 
   <!-- AR Viewer -->
   <model-viewer id="modelViewer"
-                src="models/kamar_putra.glb"
-                ios-src="models/kamar_putra.usdz"
-                alt="Kamar Putra"
+                src="models/kamar_putra_jendela.glb"
+                ios-src="models/kamar_putra_jendela.usdz"
+                alt="Kamar Putra dengan Jendela"
                 ar
                 auto-rotate
                 camera-controls
@@ -109,17 +111,16 @@
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h3>🛏 Kamar Santri Putra – Tanpa Jendela</h3>
-      <p>Beberapa kamar santri putra memiliki ventilasi alih-alih jendela. Tetap dirancang agar nyaman dan aman dihuni.</p>
+      <h3>🪟 Kamar Santri Putra – Dengan Jendela</h3>
+      <p>Kamar ini berada di lantai-lantai yang memiliki jendela luar, memungkinkan cahaya alami masuk dan ventilasi lebih baik.</p>
       <strong>Fasilitas & Informasi:</strong>
       <ul>
         <li>🛏 Kasur tingkat di setiap kamar</li>
-        <li>🚿 4 kamar mandi per lorong (di luar kamar)</li>
-        <li>🔁 Rolling kamar tiap semester</li>
+        <li>🚿 4 kamar mandi per lorong</li>
         <li>🧺 Jemuran di lantai 1 dan 3, serta 3 mesin cuci</li>
-        <li>❄️ Kulkas bersama di lantai 3 dan lobi</li>
-        <li>🌐 WiFi per lorong, rak sepatu, air RO</li>
-        <li>📦 Bisa bawa kipas, meja, atau lemari pribadi</li>
+        <li>❄️ Kulkas bersama di lantai 3 & lobi</li>
+        <li>🌐 WiFi, rak sepatu, dan air RO</li>
+        <li>📦 Bisa membawa kipas, meja, atau lemari pribadi</li>
       </ul>
     </div>
   </div>

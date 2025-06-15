@@ -29,42 +29,32 @@
       transition: width 0.3s ease;
     }
 
-    .info-button, .back-button {
+    .info-button {
       position: fixed;
       top: 20px;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 8px;
+      right: 20px;
+      background-color: #0077cc;
       color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
       cursor: pointer;
       z-index: 100;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-
-    .info-button {
-      right: 20px;
-      background-color: #0077cc;
-    }
-
-    .back-button {
-      left: 20px;
-      background-color: #4CAF50;
     }
 
     .info-button:hover {
       background-color: #005fa3;
     }
 
-    .back-button:hover {
-      background-color: #3e8e41;
-    }
-
     .modal {
       display: none;
       position: fixed;
       z-index: 101;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
       background-color: rgba(0,0,0,0.5);
     }
 
@@ -111,27 +101,26 @@
                 camera-orbit="0deg 90deg 3m"
                 field-of-view="30deg"
                 loading="eager"
-                reveal="interaction">
+                reveal="auto">
   </model-viewer>
 
-  <!-- Buttons -->
-  <button class="back-button" onclick="window.location.href='index.html'">← Kembali</button>
+  <!-- Info Button -->
   <button class="info-button" onclick="openModal()">ℹ️ Info</button>
 
   <!-- Modal Info -->
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h3>🏥 Ruangan UKP – Pelayanan Kesehatan Mahasantri</h3>
-      <p>Ruangan UKP (Unit Kesehatan Pondok) merupakan tempat penanganan pertama untuk mahasiswa yang mengalami keluhan kesehatan di lingkungan PPM Al-Faqih Mandiri.</p>
+      <h3>🏥 Ruangan UKP – Unit Kesehatan Pondok</h3>
+      <p>Ruangan UKP disediakan untuk membantu mahasiswa yang mengalami gangguan kesehatan ringan.</p>
       <strong>Fasilitas & Informasi:</strong>
       <ul>
-        <li>🛏 Tempat berbaring untuk santri yang sedang sakit</li>
-        <li>💊 Stok obat umum yang dapat diakses secara mandiri</li>
-        <li>📖 Buku catatan pengambilan obat wajib diisi saat mengambil</li>
-        <li>⚖️ Tersedia timbangan berat badan dan alat ukur tinggi</li>
-        <li>🩺 Bisa konsultasi ke anggota Divisi Kesehatan (Divkes)</li>
-        <li>📋 Ruangan ini jadi titik bantu cepat sebelum rujukan lebih lanjut</li>
+        <li>💊 Obat-obatan dasar tersedia untuk pertolongan pertama</li>
+        <li>🛏 Tempat tidur untuk beristirahat bagi santri yang sakit</li>
+        <li>⚖️ Timbangan berat badan dan alat ukur tinggi badan</li>
+        <li>📘 Buku catatan pengambilan obat (nama, obat, dan jumlah harus dicatat)</li>
+        <li>🙋‍♀️ Konsultasi dan bantuan bisa dilakukan melalui Divisi Kesehatan (Divkes)</li>
+        <li>🚪 Siap digunakan kapan pun untuk kebutuhan darurat kesehatan</li>
       </ul>
     </div>
   </div>
