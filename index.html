@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -41,17 +40,62 @@
       transform: translateY(-2px);
     }
 
-    model-viewer {
-      width: 80vw;
-      height: 70vh;
-      border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    /* Modal Styles */
+    .modal {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      z-index: 99;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
       background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .close-btn {
+      margin-top: 20px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      background-color: #005fa3;
     }
   </style>
 </head>
 
 <body>
+
+  <!-- Modal -->
+  <div id="welcomeModal" class="modal">
+    <div class="modal-content">
+      <h2>Selamat Datang! 👋</h2>
+      <p>Anda sedang menjelajahi fasilitas <strong>PPM Al-Faqih Mandiri</strong> menggunakan teknologi Augmented Reality (AR).</p>
+      <p>Silakan pilih salah satu ruangan di bawah ini untuk memulai pengalaman interaktif.</p>
+      <button class="close-btn" onclick="closeModal()">Mulai</button>
+    </div>
+  </div>
+
+  <!-- Navigation -->
   <div class="nav">
     <a href="kamar_putra_jendela.html">Kamar Putra</a>
     <a href="kamar_putra.html">Kamar Tanpa Jendela</a>
@@ -60,6 +104,11 @@
     <a href="ruangan_ukp.html">Ruangan UKP</a>
   </div>
 
-</body>
+  <script>
+    function closeModal() {
+      document.getElementById("welcomeModal").style.display = "none";
+    }
+  </script>
 
+</body>
 </html>
