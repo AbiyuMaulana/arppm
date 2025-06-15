@@ -15,9 +15,11 @@
     model-viewer {
       width: 100vw;
       height: 100vh;
+      position: relative; /* Supaya elemen lain bisa tampil di atas */
+      z-index: 1;
     }
 
-    /* Info Button */
+    /* Tombol Info */
     .info-button {
       position: fixed;
       top: 20px;
@@ -29,18 +31,18 @@
       border-radius: 8px;
       cursor: pointer;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      z-index: 10;
+      z-index: 9999; /* Supaya tampil di atas model */
     }
 
     .info-button:hover {
       background-color: #005fa3;
     }
 
-    /* Modal Styles */
+    /* Modal Pop-up */
     .modal {
       display: none;
       position: fixed;
-      z-index: 20;
+      z-index: 10000;
       left: 0;
       top: 0;
       width: 100%;
@@ -89,10 +91,10 @@
                 field-of-view="30deg">
   </model-viewer>
 
-  <!-- Info Button -->
+  <!-- Tombol Info -->
   <button class="info-button" onclick="openModal()">ℹ️ Info</button>
 
-  <!-- Modal Pop-up -->
+  <!-- Modal Deskripsi -->
   <div id="infoModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
@@ -116,7 +118,7 @@
     </div>
   </div>
 
-  <!-- Script -->
+  <!-- Script Modal -->
   <script>
     function openModal() {
       document.getElementById("infoModal").style.display = "block";
@@ -126,7 +128,7 @@
       document.getElementById("infoModal").style.display = "none";
     }
 
-    // Optional: Close modal if user clicks outside content
+    // Klik luar modal = tutup
     window.onclick = function(event) {
       const modal = document.getElementById("infoModal");
       if (event.target === modal) {
