@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3D Model Viewer</title>
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fasilitas AR – PPM AFM</title>
   <style>
     body {
       margin: 0;
-      background-color: #f0f0f0;
+      background-image: url('PPM_AFM.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       flex-direction: column;
@@ -22,7 +24,10 @@
       flex-wrap: wrap;
       gap: 15px;
       justify-content: center;
-      margin-bottom: 20px;
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     }
 
     .nav a {
@@ -40,7 +45,6 @@
       transform: translateY(-2px);
     }
 
-    /* Modal Styles */
     .modal {
       display: flex;
       align-items: center;
@@ -85,17 +89,17 @@
 
 <body>
 
-  <!-- Modal -->
+  <!-- Modal Sambutan -->
   <div id="welcomeModal" class="modal">
     <div class="modal-content">
       <h2>Selamat Datang! 👋</h2>
-      <p>Anda sedang menjelajahi fasilitas <strong>PPM Al-Faqih Mandiri</strong> menggunakan teknologi Augmented Reality (AR).</p>
+      <p>Anda sedang menjelajahi fasilitas <strong>PPM Al-Faqih Mandiri</strong> dengan teknologi Augmented Reality (AR).</p>
       <p>Silakan pilih salah satu ruangan di bawah ini untuk memulai pengalaman interaktif.</p>
       <button class="close-btn" onclick="closeModal()">Mulai</button>
     </div>
   </div>
 
-  <!-- Navigation -->
+  <!-- Tombol Navigasi -->
   <div class="nav">
     <a href="kamar_putra_jendela.html">Kamar Putra</a>
     <a href="kamar_putra.html">Kamar Tanpa Jendela</a>
@@ -104,6 +108,7 @@
     <a href="ruangan_ukp.html">Ruangan UKP</a>
   </div>
 
+  <!-- Script Modal -->
   <script>
     function closeModal() {
       document.getElementById("welcomeModal").style.display = "none";
