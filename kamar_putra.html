@@ -111,7 +111,7 @@
                 camera-orbit="0deg 90deg 3m"
                 field-of-view="30deg"
                 loading="eager"
-                reveal="interaction">
+                reveal="auto">
   </model-viewer>
 
   <!-- Buttons -->
@@ -139,6 +139,7 @@
 
   <!-- Script -->
   <script>
+    // Info Modal Logic
     function openModal() {
       document.getElementById("infoModal").style.display = "block";
     }
@@ -154,6 +155,7 @@
       }
     }
 
+    // Loading Progress
     const viewer = document.getElementById('modelViewer');
     const progressBar = document.getElementById('progressBar');
 
