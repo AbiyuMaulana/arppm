@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AR Viewer</title>
+  <title>Kamar Putra</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
     body {
@@ -29,11 +29,11 @@
       transition: width 0.3s ease;
     }
 
-    .back-button {
+    .info-button {
       position: fixed;
       top: 20px;
-      left: 20px;
-      background-color: #4CAF50;
+      right: 20px;
+      background-color: #0077cc;
       color: white;
       border: none;
       padding: 10px 16px;
@@ -43,8 +43,45 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 
-    .back-button:hover {
-      background-color: #3e8e41;
+    .info-button:hover {
+      background-color: #005fa3;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 101;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      line-height: 1.6;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: black;
+    }
+
+    ul {
+      padding-left: 20px;
     }
   </style>
 </head>
@@ -55,7 +92,7 @@
 
   <!-- AR Viewer -->
   <model-viewer id="modelViewer"
-                src="models/kamar_putra.glb" <!-- Ganti sesuai model -->
+                src="models/kamar_putra.glb"
                 ios-src="models/kamar_putra.usdz"
                 alt="Kamar Putra"
                 ar
@@ -64,14 +101,48 @@
                 camera-orbit="0deg 90deg 3m"
                 field-of-view="30deg"
                 loading="eager"
-                reveal="interaction">
+                reveal="auto">
   </model-viewer>
 
-  <!-- Tombol Back -->
-  <button class="back-button" onclick="window.location.href='index.html'">← Kembali</button>
+  <!-- Info Button -->
+  <button class="info-button" onclick="openModal()">ℹ️ Info</button>
 
-  <!-- Script Loading -->
+  <!-- Modal Info -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3>🛏 Kamar Santri Putra – Tanpa Jendela</h3>
+      <p>Beberapa kamar santri putra memiliki ventilasi alih-alih jendela. Tetap dirancang agar nyaman dan aman dihuni.</p>
+      <strong>Fasilitas & Informasi:</strong>
+      <ul>
+        <li>🛏 Kasur tingkat di setiap kamar</li>
+        <li>🚿 4 kamar mandi per lorong (di luar kamar)</li>
+        <li>🔁 Rolling kamar tiap semester</li>
+        <li>🧺 Jemuran di lantai 1 dan 3, serta 3 mesin cuci</li>
+        <li>❄️ Kulkas bersama di lantai 3 dan lobi</li>
+        <li>🌐 WiFi per lorong, rak sepatu, air RO</li>
+        <li>📦 Bisa bawa kipas, meja, atau lemari pribadi</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Script -->
   <script>
+    function openModal() {
+      document.getElementById("infoModal").style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById("infoModal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById("infoModal");
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
+
     const viewer = document.getElementById('modelViewer');
     const progressBar = document.getElementById('progressBar');
 
